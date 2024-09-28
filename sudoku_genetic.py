@@ -198,7 +198,7 @@ def genetic_algorithm():
         population = get_offsprings(mating_pool)
         fit = [get_fit(c) for c in population]
         m = max(fit)
-        print(m)
+        # print(m)
         if m == 0:
             return population
     return population
