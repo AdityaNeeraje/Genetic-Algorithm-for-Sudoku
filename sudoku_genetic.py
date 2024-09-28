@@ -3,13 +3,14 @@ import time
 from z3 import *
 from tqdm import tqdm
 from math import inf
+from copy import deepcopy   
 
 matrix = ["020100070", "000302000", "001080040", "900010007", "008060050", "000000000", "080036009", "005070006", "002000003"]
 # matrix = ["8 0 6 0 0 0 1 0 7", "0 0 0 6 0 2 0 0 0", "0 5 3 0 0 4 8 0 6", "7 0 4 8 0 0 6 3 0", "0 0 0 0 0 0 0 9 0", "1 0 0 5 0 0 4 0 0", "0 0 1 2 0 0 7 0 9", "2 0 0 0 9 6 0 0 0", "0 7 0 0 1 0 0 8 0"]
 matrix = [[int(char) for char in list(s) if char != " "] for s in matrix]
 
 def make_genes(initial=None):
-    initial_copy=[i for i in initial]
+    initial_copy=deepcopy(initial)
     if initial_copy is None:
         initial_copy = list(range(1, 10))    
         random.shuffle(initial_copy)
@@ -124,7 +125,7 @@ def simulate_mutation(chromosome):
             random.shuffle(truly_random)
             # for k in range(len(truly_random)):
             #     chromosome[i][truly_random[k]]=values[k]
-            chromosome[i]=choice1
+            chromosome[i]=deepcopy(choice1)
         # if random.random() < 0.1:
         #     chromosome[i]=make_genes(matrix[i])
         # if random.random() < 0.1:
@@ -197,7 +198,7 @@ def genetic_algorithm():
         population = get_offsprings(mating_pool)
         fit = [get_fit(c) for c in population]
         m = max(fit)
-        # print(m)
+        print(m)
         if m == 0:
             return population
     return population
